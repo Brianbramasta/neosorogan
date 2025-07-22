@@ -1,0 +1,105 @@
+
+
+## 📚 Tabel: `users`
+
+| Kolom       | Tipe Data    | Keterangan                    |
+| ----------- | ------------ | ----------------------------- |
+| id          | BIGINT (PK)  | ID unik pengguna              |
+| name        | VARCHAR(100) | Nama lengkap                  |
+| email       | VARCHAR(100) | Email unik                    |
+| password    | STRING       | Hash password                 |
+| role        | ENUM         | `student`, `teacher`, `admin` |
+| created\_at | TIMESTAMP    |                               |
+| updated\_at | TIMESTAMP    |                               |
+
+---
+
+## 🎓 Tabel: `classes`
+
+| Kolom       | Tipe Data    | Keterangan                  |
+| ----------- | ------------ | --------------------------- |
+| id          | BIGINT (PK)  | ID unik kelas               |
+| name        | VARCHAR(100) | Nama kelas                  |
+| teacher\_id | BIGINT (FK)  | Relasi ke `users.id` (guru) |
+| created\_at | TIMESTAMP    |                             |
+| updated\_at | TIMESTAMP    |                             |
+
+---
+
+## 🧑‍🏫 Tabel: `class_students`
+
+| Kolom       | Tipe Data   | Keterangan                   |
+| ----------- | ----------- | ---------------------------- |
+| id          | BIGINT (PK) |                              |
+| class\_id   | BIGINT (FK) | Relasi ke `classes.id`       |
+| student\_id | BIGINT (FK) | Relasi ke `users.id` (siswa) |
+| created\_at | TIMESTAMP   |                              |
+| updated\_at | TIMESTAMP   |                              |
+
+---
+
+## 📝 Tabel: `tasks`
+
+| Kolom       | Tipe Data   | Keterangan                      |
+| ----------- | ----------- | ------------------------------- |
+| id          | BIGINT (PK) | ID unik tugas                   |
+| student\_id | BIGINT (FK) | Relasi ke `users.id`            |
+| date        | DATE        | Tanggal tugas                   |
+| punishment  | BOOLEAN     | Apakah tugas ini karena hukuman |
+| created\_at | TIMESTAMP   |                                 |
+| updated\_at | TIMESTAMP   |                                 |
+
+---
+
+## 🧠 Tabel: `task_words`
+
+| Kolom       | Tipe Data   | Keterangan           |
+| ----------- | ----------- | -------------------- |
+| id          | BIGINT (PK) |                      |
+| task\_id    | BIGINT (FK) | Relasi ke `tasks.id` |
+| word        | VARCHAR(50) | Kosakata             |
+| description | TEXT        | Deskripsi kosakata   |
+| example     | TEXT        | Contoh kalimat       |
+| created\_at | TIMESTAMP   |                      |
+| updated\_at | TIMESTAMP   |                      |
+
+---
+
+## 🌟 Tabel: `task_scores`
+
+| Kolom       | Tipe Data   | Keterangan                  |
+| ----------- | ----------- | --------------------------- |
+| id          | BIGINT (PK) |                             |
+| task\_id    | BIGINT (FK) | Relasi ke `tasks.id`        |
+| teacher\_id | BIGINT (FK) | Relasi ke `users.id` (guru) |
+| star\_count | TINYINT     | 1, 2, atau 3 bintang        |
+| comment     | TEXT        | Komentar guru               |
+| created\_at | TIMESTAMP   |                             |
+| updated\_at | TIMESTAMP   |                             |
+
+---
+
+## 📄 Tabel: `materials`
+
+| Kolom       | Tipe Data       | Keterangan                        |
+| ----------- | --------------- | --------------------------------- |
+| id          | BIGINT (PK)     | ID unik materi                    |
+| title       | VARCHAR(100)    | Judul materi                      |
+| content     | TEXT            | Konten materi                     |
+| file\_url   | TEXT (nullable) | URL file (PDF/video) jika ada     |
+| created\_by | BIGINT (FK)     | Relasi ke `users.id` (guru/admin) |
+| created\_at | TIMESTAMP       |                                   |
+| updated\_at | TIMESTAMP       |                                   |
+
+---
+
+## ⚙️ Tabel: `activity_logs`
+
+| Kolom       | Tipe Data   | Keterangan           |
+| ----------- | ----------- | -------------------- |
+| id          | BIGINT (PK) |                      |
+| user\_id    | BIGINT (FK) | Relasi ke `users.id` |
+| activity    | TEXT        | Deskripsi aktivitas  |
+| created\_at | TIMESTAMP   |                      |
+
+---
